@@ -1,6 +1,6 @@
-# Daba.Cities — Automated Content Pipeline
+# Daba.Cities : Automated Content Pipeline
 
-Internal automation tool for Daba.Cities that turns approved Notion content rows into ready-to-publish, platform-tailored social posts — with a human approval step before anything goes out.
+Internal automation tool for Daba.Cities that turns approved Notion content rows into ready-to-publish, platform-tailored social posts, with a human approval step before anything goes out.
 
 ## What it does
 
@@ -21,8 +21,8 @@ n8n: Daba.Cities - Content Pipeline
    │  - Notion Trigger (filters latest updated rows)
    │  - Filter (status = "Ready for Review")
    │  - Split Platforms
-   │  - Toning & Reshaping (AI: per-platform caption/text)
    │  - Image Generation (Replicate — flux-2-klein-4b)
+   │  - Toning & Reshaping (AI: per-platform caption/text)
    │  - Write to Postgres (status: pending_approval)
    │  - Wait (pauses for dashboard decision via webhook)
    │
@@ -43,9 +43,9 @@ Any node failure → n8n: Daba.Cities - Error Logger → email alert
 
 ### n8n workflows
 Self-hosted via Docker. Three workflows, exported as JSON (no credentials included — see [Setup](#setup)):
-- **Daba.Cities - Content Pipeline** — main end-to-end flow described above.
-- **Daba.Cities - Regenerate Content** — sub-workflow n8n calls recursively to handle "rewrite" / "redo_design" decisions from the dashboard (n8n workflows can't loop back to earlier nodes within one run, so this is a self-calling sub-workflow instead).
-- **Daba.Cities - Error Logger** — catches failures from the other workflows and emails an alert. Linked as the "Error Workflow" setting on the other two.
+- **Daba.Cities - Content Pipeline** : main end-to-end flow described above.
+- **Daba.Cities - Regenerate Content** : sub-workflow n8n calls recursively to handle "rewrite" / "redo_design" decisions from the dashboard (n8n workflows can't loop back to earlier nodes within one run, so this is a self-calling sub-workflow instead).
+- **Daba.Cities - Error Logger** : catches failures from the other workflows and emails an alert. Linked as the "Error Workflow" setting on the other two.
 
 ### Postgres database
 Source of truth for pipeline state (not Notion — Notion is only the content-idea intake). Schema:
